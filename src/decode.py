@@ -2,8 +2,8 @@ from scipy.io import wavfile
 from goertzel import goertzel
 
 SAMPLING_RATE = 48000
-MARK_TARGET_FREQUENCY = 2025
-SPACE_TARGET_FREQUENCY = 2225
+MARK_TARGET_FREQUENCY = 2225
+SPACE_TARGET_FREQUENCY = 2025
 SAMPLING_SIZE = 160
 
 
@@ -26,8 +26,8 @@ if __name__ == '__main__':
     decoded_message = ''
 
     for sample in full_list_of_samples:
-        space = goertzel(sample, SAMPLING_RATE, MARK_TARGET_FREQUENCY, SAMPLING_SIZE)
-        mark = goertzel(sample, SAMPLING_RATE, SPACE_TARGET_FREQUENCY, SAMPLING_SIZE)
+        space = goertzel(sample, SAMPLING_RATE, SPACE_TARGET_FREQUENCY, SAMPLING_SIZE)
+        mark = goertzel(sample, SAMPLING_RATE, MARK_TARGET_FREQUENCY, SAMPLING_SIZE)
         if mark > space:
             binary_list += '1'
         else:
