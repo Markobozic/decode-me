@@ -1,5 +1,6 @@
 from scipy.io import wavfile
 from goertzel import goertzel
+import sys
 
 SAMPLING_RATE = 48000
 MARK_TARGET_FREQUENCY = 2225
@@ -20,7 +21,15 @@ def split(l):
 
 
 if __name__ == '__main__':
-    fs, data = wavfile.read('bozic.wav')
+    fs, data = None, None
+    try:
+        if str(sys.argv[1]).endswith('.wav'):
+            fs, data = wavfile.read(str(sys.argv[1]))
+        else:
+            raise Exception('The supplied file was not a valid WAVE file ending in .wav')
+    except IOError:
+        print IOError
+
     full_list_of_samples = list(split(data))
     binary_list = ''
     decoded_message = ''
